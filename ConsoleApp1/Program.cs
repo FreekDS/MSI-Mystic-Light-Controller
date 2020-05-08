@@ -6,33 +6,14 @@ using System.Runtime.InteropServices.ComTypes;
 
 namespace ConsoleApp1
 {
-    public class Test
-    {
-
-        const string SDK_PATH = "C:\\Users\\gebruiker\\Desktop\\Mystic_light_SDK\\MysticLight_SDK.dll";
-
-        [DllImport("kernel32.dll", CharSet = CharSet.Auto, SetLastError = true)]
-        public static extern bool SetDllDirectory(string lpPathName);
-
-        [DllImport("C:\\Users\\gebruiker\\source\\repos\\ConsoleApp1\\ConsoleApp1\\Lib\\DLLTest.dll", CallingConvention = CallingConvention.Cdecl)]
-        public static extern void helloWorld(string message);
-
-        [DllImport("C:\\Users\\gebruiker\\source\\repos\\ConsoleApp1\\ConsoleApp1\\Lib\\DLLTest.dll", EntryPoint = "sum")]
-        public static extern int sum(int lhs, int rhs);
-
-        [DllImport(SDK_PATH, CallingConvention = CallingConvention.Cdecl)]
-        public static extern int MLAPI_Initialize();
-
-    }
-
-
     class Program
     {
 
         static void Main(string[] args)
         {
 
-            string DLL_PATH = ConfigurationManager.AppSettings["MLAPI_DIR"];
+            string DLL_PATH = ConfigurationManager.AppSettings["MYSTIC_LIGHT_DLL"];
+            
             LightAPI.SetDllDirectory(DLL_PATH);
 
             Console.WriteLine("Started program...\n" +
@@ -43,7 +24,6 @@ namespace ConsoleApp1
             if (result == (int)MLAPIStatus.MLAPI_OK)
             {
                 Console.WriteLine("FOUND! Everything OKIDOKI PIANISSIMOKI");
-                return;
             }
             else
             {
