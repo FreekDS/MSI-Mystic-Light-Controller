@@ -1,0 +1,17 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
+    <Platforms>AnyCPU;x64;x86</Platforms>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Folder Include="Lib\" />
+    <PackageReference Include="System.Configuration.ConfigurationManager" Version="4.7.0" />
+    <Reference Include="Lib\DLLTest.dll" />
+  </ItemGroup>
+
+  
+  
+</Project>
