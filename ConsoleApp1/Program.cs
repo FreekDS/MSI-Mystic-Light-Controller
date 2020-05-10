@@ -42,10 +42,10 @@ namespace ConsoleApp1
                 Console.WriteLine("Trying MLAPI GetDeviceInfo...");
 
                 string[] devTypes = null;
-                uint[] ledCount = null;
+                string[] ledCount = null;
 
                 
-                int result2 = LightAPI.MLAPI_GetDeviceInfo(ref devTypes, ref ledCount);
+                int result2 = LightAPI.MLAPI_GetDeviceInfo(ref devTypes, out ledCount);
 
                 if(result2 != (int)MLAPIStatus.MLAPI_OK)
                 {
@@ -61,13 +61,13 @@ namespace ConsoleApp1
                 }
 
                 Console.WriteLine("LED COUNT:");
-                foreach(uint led in ledCount)
+                foreach(string led in ledCount)
                 {
                     Console.WriteLine("\t" + led);
                 }
 
                 string CURRENT_DEV_TYPE = devTypes[0];
-                uint CURRENT_LED_COUNT = ledCount[0];
+                string CURRENT_LED_COUNT = ledCount[0];
 
                 string[] devNames = null;
                 /*result = LightAPI.MLAPI_GetDeviceName(CURRENT_DEV_TYPE, ref devNames);
