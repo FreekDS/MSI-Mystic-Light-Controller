@@ -160,6 +160,7 @@ namespace ConsoleApp1
                     if (result != (int)MLAPIStatus.MLAPI_OK)
                     {
                         Console.WriteLine(String.Format("Cannot get color for LED {0}", i));
+                        Error(result, true);
                     }
                     else
                     {
@@ -176,6 +177,7 @@ namespace ConsoleApp1
                     if (result != (int)MLAPIStatus.MLAPI_OK)
                     {
                         Console.WriteLine(String.Format("Cannot get style for LED {0}", i));
+                        Error(result, true);
                     }
                     else
                     {
@@ -185,7 +187,7 @@ namespace ConsoleApp1
 
 
                 //////// LED MAX BRIGHT
-                Console.WriteLine("\nStyle tijd!");
+                Console.WriteLine("\n Max bright tijd!");
                 for (uint i = 0; i < CURRENT_LED_COUNT; i++)
                 {
                     result = LightAPI.MLAPI_GetLedMaxBright(CURRENT_DEV_TYPE, i, out uint brightness);
@@ -193,6 +195,7 @@ namespace ConsoleApp1
                     if (result != (int)MLAPIStatus.MLAPI_OK)
                     {
                         Console.WriteLine(String.Format("Cannot get max bright for LED {0}", i));
+                        Error(result, true);
                     }
                     else
                     {
