@@ -14,7 +14,6 @@
     <Folder Include="Lib\" />
     <Folder Include="Deployment\" />
     <PackageReference Include="System.Configuration.ConfigurationManager" Version="4.7.0" />
-    <Reference Include="Lib\DLLTest.dll" />
   </ItemGroup>
 
   

@@ -66,29 +66,36 @@ namespace ConsoleApp1
                 }
 
                 string CURRENT_DEV_TYPE = devTypes[0];
-                string CURRENT_LED_COUNT = ledCount[0];
+                int CURRENT_LED_COUNT = Int32.Parse(ledCount[0]);
 
-                string[] devNames = null;
-                result = LightAPI.MLAPI_GetDeviceName(CURRENT_DEV_TYPE, out devNames);
+                ////////////////// Device name
+
+                result = LightAPI.MLAPI_GetDeviceName(CURRENT_DEV_TYPE, out string[] devNames);
 
                 if (result != (int)MLAPIStatus.MLAPI_OK)
                 {
                     Console.WriteLine("Cannot get device name :'(");
                     Error(result);
-                    return;
                 }
-
-                Console.WriteLine("DEVICE NAMES:");
-                foreach(string dev in devNames)
+                else
                 {
-                    Console.WriteLine("\t" + dev); 
+                    Console.WriteLine("DEVICE NAMES:");
+                    foreach (string dev in devNames)
+                    {
+                        Console.WriteLine("\t" + dev);
+                    }
+                    if (devNames.Length == 0)
+                    {
+                        Console.WriteLine("\tNone");
+                    }
                 }
 
+                /////////////////// Device name EX
 
                 result = LightAPI.MLAPI_GetDeviceNameEx(CURRENT_DEV_TYPE, 0, out string devName);
                 if (result != (int)MLAPIStatus.MLAPI_OK)
                 {
-                    Console.WriteLine("Cannot get device name :'(");
+                    Console.WriteLine("Cannot get device name (ex) :'(");
                 }
                 else
                 {
@@ -97,27 +104,101 @@ namespace ConsoleApp1
 
                 Console.WriteLine("trying to get LED info...");
 
+                ///////////////////// LED INFO
+
                 result = LightAPI.MLAPI_GetLedInfo(CURRENT_DEV_TYPE, 0, out string name, out string[] styles);
+
+                Console.WriteLine("Done fetching info");
 
                 if (result != (int)MLAPIStatus.MLAPI_OK)
                 {
-                    Console.WriteLine("Cannot get LED name :'(");
+                    Console.WriteLine("Cannot get LED info :'(");
                     Error(result);
-                    return;
                 }
                 else
                 {
                     Console.WriteLine("Ca marche");
+                    Console.WriteLine("LED 0:\n\t" + name);
+                    foreach (string style in styles)
+                    {
+                        Console.WriteLine("\tSTYLE:" + style);
+                    }
+
+                    Console.WriteLine("Miauwkes");
                 }
 
-                Console.WriteLine("LED 0:\n\t" + name);
-                foreach (string style in styles)
+                ////////// LED name
+
+                result = LightAPI.MLAPI_GetLedName(CURRENT_DEV_TYPE, out string[] ledName);
+                if (result != (int)MLAPIStatus.MLAPI_OK)
                 {
-                    Console.WriteLine("\tSTYLE:" + style);
+                    Console.WriteLine("Cannot get LED name :'(");
+                    Error(result);
+                }
+                else
+                {
+                    Console.WriteLine("LED NAME:");
+                    foreach(string n in ledName)
+                    {
+                        Console.WriteLine("\t" + n);
+                    }
                 }
 
-                Console.WriteLine("Miauwkes");
 
+                //////// LED COLOR
+                Console.WriteLine("\n\nColor tijd!");
+                for(uint i = 0; i < CURRENT_LED_COUNT; i++)
+                {
+                    result = LightAPI.MLAPI_GetLedColor(CURRENT_DEV_TYPE, i, out uint r, out uint g, out uint b);
+
+                    if (result != (int)MLAPIStatus.MLAPI_OK)
+                    {
+                        Console.WriteLine(String.Format("Cannot get color for LED {0}", i));
+                    }
+                    else
+                    {
+                        Console.WriteLine(String.Format("\tCOLOR LED {0} ({1}, {2}, {3})", i, r, g, b));
+                    }
+                }
+
+                //////// LED STYLE
+                Console.WriteLine("\nStyle tijd!");
+                for (uint i = 0; i < CURRENT_LED_COUNT; i++)
+                {
+                    result = LightAPI.MLAPI_GetLedStyle(CURRENT_DEV_TYPE, i, out string style);
+
+                    if (result != (int)MLAPIStatus.MLAPI_OK)
+                    {
+                        Console.WriteLine(String.Format("Cannot get style for LED {0}", i));
+                    }
+                    else
+                    {
+                        Console.WriteLine(String.Format("STYLE LED {0}: {1}", i, style));
+                    }
+                }
+
+
+                //////// LED MAX BRIGHT
+                Console.WriteLine("\nStyle tijd!");
+                for (uint i = 0; i < CURRENT_LED_COUNT; i++)
+                {
+                    result = LightAPI.MLAPI_GetLedMaxBright(CURRENT_DEV_TYPE, i, out uint brightness);
+
+                    if (result != (int)MLAPIStatus.MLAPI_OK)
+                    {
+                        Console.WriteLine(String.Format("Cannot get max bright for LED {0}", i));
+                    }
+                    else
+                    {
+                        Console.WriteLine(String.Format("Max brightness LED {0}: {1}", i, brightness));
+                    }
+                }
+
+
+
+
+
+                Console.WriteLine("End of execution");
 
             }
             else
