@@ -153,7 +153,7 @@ namespace ConsoleApp1
 
                 //////// LED COLOR
                 Console.WriteLine(String.Format("\n\nColor tijd! ({0}, {1})", CURRENT_DEV_TYPE, CURRENT_LED_COUNT));
-                for(uint i = 0; i < CURRENT_LED_COUNT*2; i++)
+                for(uint i = 0; i < CURRENT_LED_COUNT; i++)
                 {
                     result = LightAPI.MLAPI_GetLedColor(CURRENT_DEV_TYPE, i, out uint r, out uint g, out uint b);
 
