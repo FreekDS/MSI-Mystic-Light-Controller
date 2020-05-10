@@ -105,6 +105,10 @@ namespace ConsoleApp1
                     Error(result);
                     return;
                 }
+                else
+                {
+                    Console.WriteLine("Ca marche");
+                }
 
                 Console.WriteLine("LED 0:\n\t" + name);
                 foreach (string style in styles)
