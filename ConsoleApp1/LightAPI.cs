@@ -50,7 +50,7 @@ namespace ConsoleApp1
         [DllImport(SDK_NAME, CallingConvention = CallingConvention.Cdecl)]
         public static extern int MLAPI_GetDeviceInfo(
             [MarshalAs(UnmanagedType.SafeArray, SafeArraySubType = VarEnum.VT_BSTR)] ref String[] devTypes,
-            [MarshalAs(UnmanagedType.SafeArray, SafeArraySubType = VarEnum.VT_INT)] ref String[] ledCount
+            [MarshalAs(UnmanagedType.SafeArray, SafeArraySubType = VarEnum.VT_UINT)] ref uint[] ledCount
         );
 
         [DllImport(SDK_NAME, CallingConvention = CallingConvention.Cdecl)]

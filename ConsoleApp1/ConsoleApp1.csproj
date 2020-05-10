@@ -7,6 +7,10 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="Deployment\ConsoleApp1.exe" />
+  </ItemGroup>
+
+  <ItemGroup>
     <Folder Include="Lib\" />
     <Folder Include="Deployment\" />
     <PackageReference Include="System.Configuration.ConfigurationManager" Version="4.7.0" />
