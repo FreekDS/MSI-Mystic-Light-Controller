@@ -9,13 +9,16 @@ namespace ConsoleApp1
     class Program
     {
 
-        static void Error(int status)
+        static void Error(int status, bool skip = false)
         {
             LightAPI.MLAPI_GetErrorMessage(status, out string errMessage);
             Console.WriteLine(errMessage);
 
-            Console.WriteLine("Finished with errors, press any key to continue...");
-            Console.ReadLine();
+            if (!skip)
+            {
+                Console.WriteLine("Finished with errors, press any key to continue...");
+                Console.ReadLine();
+            }
         }
 
         static void Main(string[] args)
@@ -96,16 +99,19 @@ namespace ConsoleApp1
                 if (result != (int)MLAPIStatus.MLAPI_OK)
                 {
                     Console.WriteLine("Cannot get device name (ex) :'(");
+                    Error(result, true);
                 }
                 else
                 {
                     Console.WriteLine("DEVICE NAME: \n\t" + devName);
                 }
 
-                Console.WriteLine("trying to get LED info...");
 
                 ///////////////////// LED INFO
-
+                ///
+                /*
+                Console.WriteLine("trying to get LED info...");
+              
                 result = LightAPI.MLAPI_GetLedInfo(CURRENT_DEV_TYPE, 0, out string name, out string[] styles);
 
                 Console.WriteLine("Done fetching info");
@@ -125,7 +131,7 @@ namespace ConsoleApp1
                     }
 
                     Console.WriteLine("Miauwkes");
-                }
+                }*/
 
                 ////////// LED name
 
