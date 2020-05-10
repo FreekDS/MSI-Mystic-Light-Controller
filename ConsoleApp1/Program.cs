@@ -70,7 +70,7 @@ namespace ConsoleApp1
                 string CURRENT_LED_COUNT = ledCount[0];
 
                 string[] devNames = null;
-                /*result = LightAPI.MLAPI_GetDeviceName(CURRENT_DEV_TYPE, ref devNames);
+                result = LightAPI.MLAPI_GetDeviceName(CURRENT_DEV_TYPE, ref devNames);
 
                 if (result != (int)MLAPIStatus.MLAPI_OK)
                 {
@@ -83,7 +83,7 @@ namespace ConsoleApp1
                 foreach(string dev in devNames)
                 {
                     Console.WriteLine("\t" + dev); 
-                }*/
+                }
 
             }
             else
