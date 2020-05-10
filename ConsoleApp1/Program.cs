@@ -3,6 +3,7 @@ using System.Configuration;
 using System.IO;
 using System.Runtime.InteropServices;
 using System.Runtime.InteropServices.ComTypes;
+using System.Text;
 
 namespace ConsoleApp1
 {
@@ -135,7 +136,7 @@ namespace ConsoleApp1
 
                 ////////// LED name
 
-                /*result = LightAPI.MLAPI_GetLedName(CURRENT_DEV_TYPE, out string[] ledName);
+                result = LightAPI.MLAPI_GetLedName(CURRENT_DEV_TYPE, out StringBuilder[] ledName);
                 if (result != (int)MLAPIStatus.MLAPI_OK)
                 {
                     Console.WriteLine("Cannot get LED name :'(");
@@ -144,11 +145,11 @@ namespace ConsoleApp1
                 else
                 {
                     Console.WriteLine("LED NAME:");
-                    foreach(string n in ledName)
+                    foreach(StringBuilder n in ledName)
                     {
-                        Console.WriteLine("\t" + n);
+                        Console.WriteLine("\t" + n.ToString());
                     }
-                }*/
+                }
 
 
                 //////// LED COLOR
