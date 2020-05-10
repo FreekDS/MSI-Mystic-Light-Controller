@@ -72,7 +72,7 @@ namespace ConsoleApp1
         public static extern int MLAPI_GetLedInfo(
             string type,
             uint index,
-            ref string name,
+            out string name,
             [Out, MarshalAs(UnmanagedType.SafeArray, SafeArraySubType = VarEnum.VT_BSTR)] out string[] ledStyles
         );
 

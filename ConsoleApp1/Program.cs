@@ -90,9 +90,28 @@ namespace ConsoleApp1
                 {
                     Console.WriteLine("Cannot get device name :'(");
                     Error(result);
+                }
+                else
+                {
+                    Console.WriteLine("DEVICE NAME: \n\t" + devName);
+                }
+
+                Console.WriteLine("trying to get LED info...");
+
+                result = LightAPI.MLAPI_GetLedInfo(CURRENT_DEV_TYPE, 0, out string name, out string[] styles);
+                if (result != (int)MLAPIStatus.MLAPI_OK)
+                {
+                    Console.WriteLine("Cannot get LED name :'(");
+                    Error(result);
                     return;
                 }
-                Console.WriteLine("DEVICE NAME: \n\t" + devName);
+
+                Console.WriteLine("LED 0:\n\t" + name);
+                foreach (string style in styles)
+                {
+                    Console.WriteLine("\tSTYLE:" + style);
+                }
+
 
             }
             else
