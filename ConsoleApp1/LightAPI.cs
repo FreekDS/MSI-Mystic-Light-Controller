@@ -51,21 +51,21 @@ namespace ConsoleApp1
         // VT_BSTR WERKT!!
         [DllImport(SDK_NAME, CallingConvention = CallingConvention.Cdecl)]
         public static extern int MLAPI_GetDeviceInfo(
-            [MarshalAs(UnmanagedType.SafeArray, SafeArraySubType = VarEnum.VT_BSTR)] ref string[] devTypes,
+            [Out, MarshalAs(UnmanagedType.SafeArray, SafeArraySubType = VarEnum.VT_BSTR)] out string[] devTypes,
             [Out, MarshalAs(UnmanagedType.SafeArray, SafeArraySubType = VarEnum.VT_BSTR)] out string[] ledCount
         );
 
         [DllImport(SDK_NAME, CallingConvention = CallingConvention.Cdecl)]
         public static extern int MLAPI_GetDeviceName(
             string type,
-            [MarshalAs(UnmanagedType.SafeArray, SafeArraySubType = VarEnum.VT_BSTR)] ref String[] devName
+            [Out, MarshalAs(UnmanagedType.SafeArray, SafeArraySubType = VarEnum.VT_BSTR)] out string[] devName
         );
 
         [DllImport(SDK_NAME, CallingConvention = CallingConvention.Cdecl)]
         public static extern int MLAPI_GetDeviceNameEx(
             string type,
             uint index,
-            ref string deviceName
+            out string deviceName
         );
 
         [DllImport(SDK_NAME, CallingConvention = CallingConvention.Cdecl)]
@@ -73,57 +73,57 @@ namespace ConsoleApp1
             string type,
             uint index,
             ref string name,
-            [MarshalAs(UnmanagedType.SafeArray, SafeArraySubType = VarEnum.VT_BSTR)] ref String[] ledStyles
+            [Out, MarshalAs(UnmanagedType.SafeArray, SafeArraySubType = VarEnum.VT_BSTR)] out string[] ledStyles
         );
 
         [DllImport(SDK_NAME, CallingConvention = CallingConvention.Cdecl)]
         public static extern int MLAPI_GetLedName(
             string type,
-            [MarshalAs(UnmanagedType.SafeArray, SafeArraySubType = VarEnum.VT_BSTR)] ref String[] deviceName
+            [Out, MarshalAs(UnmanagedType.SafeArray, SafeArraySubType = VarEnum.VT_BSTR)] out string[] deviceName
         );
 
         [DllImport(SDK_NAME, CallingConvention = CallingConvention.Cdecl)]
         public static extern int MLAPI_GetLedColor(
             string type,
             uint index,
-            ref uint R,
-            ref uint G,
-            ref uint B
+            out uint R,
+            out uint G,
+            out uint B
         );
 
         [DllImport(SDK_NAME, CallingConvention = CallingConvention.Cdecl)]
         public static extern int MLAPI_GetLedStyle(
             string type,
             uint index,
-            ref string style
+            out string style
         );
 
         [DllImport(SDK_NAME, CallingConvention = CallingConvention.Cdecl)]
         public static extern int MLAPI_GetLedMaxBright(
             string type,
             uint index,
-            ref uint maxLevel
+            out uint maxLevel
         );
 
         [DllImport(SDK_NAME, CallingConvention = CallingConvention.Cdecl)]
         public static extern int MLAPI_GetLedBright(
             string type,
             uint index,
-            ref uint currentLevel
+            out uint currentLevel
         );
 
         [DllImport(SDK_NAME, CallingConvention = CallingConvention.Cdecl)]
         public static extern int MLAPI_GetLedMaxSpeed(
             string type,
             uint index,
-            ref uint maxLevel
+            out uint maxLevel
         );
 
         [DllImport(SDK_NAME, CallingConvention = CallingConvention.Cdecl)]
         public static extern int MLAPI_GetLedSpeed(
             string type,
             uint index,
-            ref uint currentLevel
+            out uint currentLevel
         );
 
         [DllImport(SDK_NAME, CallingConvention = CallingConvention.Cdecl)]
@@ -192,7 +192,7 @@ namespace ConsoleApp1
         [DllImport(SDK_NAME, CallingConvention = CallingConvention.Cdecl)]
         public static extern int MLAPI_GetErrorMessage(
             int errorCode,
-            [MarshalAs(UnmanagedType.BStr)] ref string description
+            [Out, MarshalAs(UnmanagedType.BStr)] out string description
         );
 
     }

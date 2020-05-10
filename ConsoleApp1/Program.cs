@@ -11,8 +11,7 @@ namespace ConsoleApp1
 
         static void Error(int status)
         {
-            string errMessage = "None";
-            LightAPI.MLAPI_GetErrorMessage(status, ref errMessage);
+            LightAPI.MLAPI_GetErrorMessage(status, out string errMessage);
             Console.WriteLine(errMessage);
 
             Console.WriteLine("Finished with errors, press any key to continue...");
@@ -45,7 +44,7 @@ namespace ConsoleApp1
                 string[] ledCount = null;
 
                 
-                int result2 = LightAPI.MLAPI_GetDeviceInfo(ref devTypes, out ledCount);
+                int result2 = LightAPI.MLAPI_GetDeviceInfo(out devTypes, out ledCount);
 
                 if(result2 != (int)MLAPIStatus.MLAPI_OK)
                 {
@@ -70,7 +69,7 @@ namespace ConsoleApp1
                 string CURRENT_LED_COUNT = ledCount[0];
 
                 string[] devNames = null;
-                result = LightAPI.MLAPI_GetDeviceName(CURRENT_DEV_TYPE, ref devNames);
+                result = LightAPI.MLAPI_GetDeviceName(CURRENT_DEV_TYPE, out devNames);
 
                 if (result != (int)MLAPIStatus.MLAPI_OK)
                 {
@@ -84,6 +83,16 @@ namespace ConsoleApp1
                 {
                     Console.WriteLine("\t" + dev); 
                 }
+
+
+                result = LightAPI.MLAPI_GetDeviceNameEx(CURRENT_DEV_TYPE, 0, out string devName);
+                if (result != (int)MLAPIStatus.MLAPI_OK)
+                {
+                    Console.WriteLine("Cannot get device name :'(");
+                    Error(result);
+                    return;
+                }
+                Console.WriteLine("DEVICE NAME: \n\t" + devName);
 
             }
             else
