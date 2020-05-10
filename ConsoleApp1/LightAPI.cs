@@ -85,10 +85,10 @@ namespace ConsoleApp1
         [DllImport(SDK_NAME, CallingConvention = CallingConvention.Cdecl, CharSet = CharSet.Ansi)]
         public static extern int MLAPI_GetLedColor(
             [MarshalAs(UnmanagedType.BStr)] string type,
-            [In, MarshalAs(UnmanagedType.SysUInt)] uint index,
-            [Out, MarshalAs(UnmanagedType.SysUInt)] out uint R,
-            [Out, MarshalAs(UnmanagedType.SysUInt)] out uint G,
-            [Out, MarshalAs(UnmanagedType.SysUInt)] out uint B
+            [In, MarshalAs(UnmanagedType.U4)] uint index,
+            [Out, MarshalAs(UnmanagedType.U4)] out uint R,
+            [Out, MarshalAs(UnmanagedType.U4)] out uint G,
+            [Out, MarshalAs(UnmanagedType.U4)] out uint B
         );
 
         [DllImport(SDK_NAME, CallingConvention = CallingConvention.Cdecl)]
