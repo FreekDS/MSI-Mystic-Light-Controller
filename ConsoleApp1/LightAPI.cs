@@ -79,7 +79,7 @@ namespace ConsoleApp1
         [DllImport(SDK_NAME, CallingConvention = CallingConvention.Cdecl)]
         public static extern int MLAPI_GetLedName(
             [MarshalAs(UnmanagedType.BStr)] string type,
-            [Out, MarshalAs(UnmanagedType.SafeArray, SafeArraySubType = VarEnum.VT_VARIANT)] out string[] deviceName
+            [Out, MarshalAs(UnmanagedType.SafeArray, SafeArraySubType = VarEnum.VT_BSTR)] out string[] deviceName
         );
 
         // THIS WORKS??!!
