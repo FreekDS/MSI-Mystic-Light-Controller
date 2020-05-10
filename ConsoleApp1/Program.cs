@@ -62,7 +62,7 @@ namespace ConsoleApp1
                     Console.WriteLine("\t" + dev);
                 }
 
-                Console.WriteLine("LED COUNT:");
+                Console.WriteLine("LED COUNT (array size: " + ledCount.Length +") :");
                 foreach(string led in ledCount)
                 {
                     Console.WriteLine("\t" + led);
@@ -73,7 +73,7 @@ namespace ConsoleApp1
 
                 ////////////////// Device name
 
-                result = LightAPI.MLAPI_GetDeviceName(CURRENT_DEV_TYPE, out string[] devNames);
+                /*result = LightAPI.MLAPI_GetDeviceName(CURRENT_DEV_TYPE, out string[] devNames);
 
                 if (result != (int)MLAPIStatus.MLAPI_OK)
                 {
@@ -91,11 +91,11 @@ namespace ConsoleApp1
                     {
                         Console.WriteLine("\tNone");
                     }
-                }
+                }*/
 
                 /////////////////// Device name EX
 
-                result = LightAPI.MLAPI_GetDeviceNameEx(CURRENT_DEV_TYPE, 0, out string devName);
+                /*result = LightAPI.MLAPI_GetDeviceNameEx(CURRENT_DEV_TYPE, 0, out string devName);
                 if (result != (int)MLAPIStatus.MLAPI_OK)
                 {
                     Console.WriteLine("Cannot get device name (ex) :'(");
@@ -104,7 +104,7 @@ namespace ConsoleApp1
                 else
                 {
                     Console.WriteLine("DEVICE NAME: \n\t" + devName);
-                }
+                }*/
 
 
                 ///////////////////// LED INFO
@@ -135,7 +135,7 @@ namespace ConsoleApp1
 
                 ////////// LED name
 
-                result = LightAPI.MLAPI_GetLedName(CURRENT_DEV_TYPE, out string[] ledName);
+                /*result = LightAPI.MLAPI_GetLedName(CURRENT_DEV_TYPE, out string[] ledName);
                 if (result != (int)MLAPIStatus.MLAPI_OK)
                 {
                     Console.WriteLine("Cannot get LED name :'(");
@@ -148,18 +148,18 @@ namespace ConsoleApp1
                     {
                         Console.WriteLine("\t" + n);
                     }
-                }
+                }*/
 
 
                 //////// LED COLOR
-                Console.WriteLine("\n\nColor tijd!");
-                for(uint i = 0; i < CURRENT_LED_COUNT; i++)
+                Console.WriteLine(String.Format("\n\nColor tijd! ({0}, {1})", CURRENT_DEV_TYPE, CURRENT_LED_COUNT));
+                for(uint i = 0; i < CURRENT_LED_COUNT*2; i++)
                 {
                     result = LightAPI.MLAPI_GetLedColor(CURRENT_DEV_TYPE, i, out uint r, out uint g, out uint b);
 
                     if (result != (int)MLAPIStatus.MLAPI_OK)
                     {
-                        Console.WriteLine(String.Format("Cannot get color for LED {0}", i));
+                        Console.WriteLine(String.Format("Cannot get color for LED {0} ({1},{2},{3})", i,r,g,b));
                         Error(result, true);
                     }
                     else
@@ -169,7 +169,7 @@ namespace ConsoleApp1
                 }
 
                 //////// LED STYLE
-                Console.WriteLine("\nStyle tijd!");
+                /*Console.WriteLine("\nStyle tijd!");
                 for (uint i = 0; i < CURRENT_LED_COUNT; i++)
                 {
                     result = LightAPI.MLAPI_GetLedStyle(CURRENT_DEV_TYPE, i, out string style);
@@ -183,11 +183,11 @@ namespace ConsoleApp1
                     {
                         Console.WriteLine(String.Format("STYLE LED {0}: {1}", i, style));
                     }
-                }
+                }*/
 
 
                 //////// LED MAX BRIGHT
-                Console.WriteLine("\n Max bright tijd!");
+                /*Console.WriteLine("\n Max bright tijd!");
                 for (uint i = 0; i < CURRENT_LED_COUNT; i++)
                 {
                     result = LightAPI.MLAPI_GetLedMaxBright(CURRENT_DEV_TYPE, i, out uint brightness);
@@ -201,7 +201,7 @@ namespace ConsoleApp1
                     {
                         Console.WriteLine(String.Format("Max brightness LED {0}: {1}", i, brightness));
                     }
-                }
+                }*/
 
 
 
