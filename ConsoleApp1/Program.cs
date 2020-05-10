@@ -89,7 +89,6 @@ namespace ConsoleApp1
                 if (result != (int)MLAPIStatus.MLAPI_OK)
                 {
                     Console.WriteLine("Cannot get device name :'(");
-                    Error(result);
                 }
                 else
                 {
@@ -99,6 +98,7 @@ namespace ConsoleApp1
                 Console.WriteLine("trying to get LED info...");
 
                 result = LightAPI.MLAPI_GetLedInfo(CURRENT_DEV_TYPE, 0, out string name, out string[] styles);
+
                 if (result != (int)MLAPIStatus.MLAPI_OK)
                 {
                     Console.WriteLine("Cannot get LED name :'(");
@@ -111,6 +111,8 @@ namespace ConsoleApp1
                 {
                     Console.WriteLine("\tSTYLE:" + style);
                 }
+
+                Console.WriteLine("Miauwkes");
 
 
             }
