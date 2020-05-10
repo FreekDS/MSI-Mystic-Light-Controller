@@ -136,7 +136,7 @@ namespace ConsoleApp1
 
                 ////////// LED name
 
-                result = LightAPI.MLAPI_GetLedName(CURRENT_DEV_TYPE, out StringBuilder[] ledName);
+                result = LightAPI.MLAPI_GetLedName(CURRENT_DEV_TYPE, out string[] ledName);
                 if (result != (int)MLAPIStatus.MLAPI_OK)
                 {
                     Console.WriteLine("Cannot get LED name :'(");
@@ -145,7 +145,7 @@ namespace ConsoleApp1
                 else
                 {
                     Console.WriteLine("LED NAME:");
-                    foreach(StringBuilder n in ledName)
+                    foreach(string n in ledName)
                     {
                         Console.WriteLine("\t" + n.ToString());
                     }

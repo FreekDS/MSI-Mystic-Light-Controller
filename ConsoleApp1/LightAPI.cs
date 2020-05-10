@@ -78,10 +78,11 @@ namespace ConsoleApp1
 
         [DllImport(SDK_NAME, CallingConvention = CallingConvention.Cdecl)]
         public static extern int MLAPI_GetLedName(
-            string type,
-            [Out, MarshalAs(UnmanagedType.SafeArray, SafeArraySubType = VarEnum.VT_BSTR)] out StringBuilder[] deviceName
+            [MarshalAs(UnmanagedType.BStr)] string type,
+            [Out, MarshalAs(UnmanagedType.SafeArray, SafeArraySubType = VarEnum.VT_VARIANT)] out string[] deviceName
         );
 
+        // THIS WORKS??!!
         [DllImport(SDK_NAME, CallingConvention = CallingConvention.Cdecl, CharSet = CharSet.Ansi)]
         public static extern int MLAPI_GetLedColor(
             [MarshalAs(UnmanagedType.BStr)] string type,
