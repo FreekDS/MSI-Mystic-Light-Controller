@@ -154,10 +154,11 @@ namespace ConsoleApp1
 
 
                 //////// LED COLOR
+                uint r = 60, g = 201, b = 0;
                 Console.WriteLine(String.Format("\n\nColor tijd! ({0}, {1})", CURRENT_DEV_TYPE, CURRENT_LED_COUNT));
                 for(uint i = 0; i < CURRENT_LED_COUNT; i++)
                 {
-                    result = LightAPI.MLAPI_GetLedColor(CURRENT_DEV_TYPE, i, out uint r, out uint g, out uint b);
+                    result = LightAPI.MLAPI_GetLedColor(CURRENT_DEV_TYPE, i, out r, out g, out b);
 
                     if (result != (int)MLAPIStatus.MLAPI_OK)
                     {
@@ -176,26 +177,19 @@ namespace ConsoleApp1
                         Console.WriteLine("Cannot set LED color :'(");
                         Error(result, true);
                     }
-                    else
-                    {
-                        Console.WriteLine("Colors should be updated?");
+                }
 
-
-                        Thread.Sleep(1000);
-
-                        Console.WriteLine("Going old color");
-
-                        result = LightAPI.MLAPI_SetLedColor(CURRENT_DEV_TYPE, i, r, g, b);
-
-                    }
-
+                Console.WriteLine("Click to back to old color");
+                Console.ReadLine();
+                for(uint i = 0; i < CURRENT_LED_COUNT; i++)
+                {
+                    result = LightAPI.MLAPI_SetLedColor(CURRENT_DEV_TYPE, i, r, g, b);
                 }
 
 
 
-
                 //////// LED STYLE
-                /*Console.WriteLine("\nStyle tijd!");
+                Console.WriteLine("\nStyle tijd!");
                 for (uint i = 0; i < CURRENT_LED_COUNT; i++)
                 {
                     result = LightAPI.MLAPI_GetLedStyle(CURRENT_DEV_TYPE, i, out string style);
@@ -209,7 +203,7 @@ namespace ConsoleApp1
                     {
                         Console.WriteLine(String.Format("STYLE LED {0}: {1}", i, style));
                     }
-                }*/
+                }
 
 
                 //////// LED MAX BRIGHT
