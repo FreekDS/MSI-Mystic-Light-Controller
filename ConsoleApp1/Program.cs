@@ -10,7 +10,7 @@ namespace ConsoleApp1
 
         static void Error(int status, bool skip = false)
         {
-            LightAPI.MLAPI_GetErrorMessage(status, out string errMessage);
+            LightApiDLL.MLAPI_GetErrorMessage(status, out string errMessage);
             Console.WriteLine(errMessage);
 
             if (!skip)
@@ -30,12 +30,12 @@ namespace ConsoleApp1
 
             string DLL_PATH = ConfigurationManager.AppSettings["MYSTIC_LIGHT_DLL"];
             
-            LightAPI.SetDllDirectory(DLL_PATH);
+            LightApiDLL.SetDllDirectory(DLL_PATH);
 
             Console.WriteLine("Started program...\n" +
                 "Searching for MysticLight SDK...");
 
-            int result = LightAPI.MLAPI_Initialize();
+            int result = LightApiDLL.MLAPI_Initialize();
 
             if (result == (int)MLAPIStatus.MLAPI_OK)
             {
@@ -49,7 +49,7 @@ namespace ConsoleApp1
                 string[] ledCount = null;
 
                 
-                int result2 = LightAPI.MLAPI_GetDeviceInfo(out devTypes, out ledCount);
+                int result2 = LightApiDLL.MLAPI_GetDeviceInfo(out devTypes, out ledCount);
 
                 if(result2 != (int)MLAPIStatus.MLAPI_OK)
                 {
@@ -114,7 +114,7 @@ namespace ConsoleApp1
                 
                 Console.WriteLine("trying to get LED info...");
               
-                result = LightAPI.MLAPI_GetLedInfo(CURRENT_DEV_TYPE, 0, out string name, out string[] styles);
+                result = LightApiDLL.MLAPI_GetLedInfo(CURRENT_DEV_TYPE, 0, out string name, out string[] styles);
 
                 Console.WriteLine("Done fetching info");
 
@@ -190,7 +190,7 @@ namespace ConsoleApp1
                 Console.WriteLine("\nStyle tijd!");
                 for (uint i = 0; i < CURRENT_LED_COUNT; i++)
                 {
-                    result = LightAPI.MLAPI_GetLedStyle(CURRENT_DEV_TYPE, i, out string style);
+                    result = LightApiDLL.MLAPI_GetLedStyle(CURRENT_DEV_TYPE, i, out string style);
 
                     if (result != (int)MLAPIStatus.MLAPI_OK)
                     {
@@ -206,7 +206,7 @@ namespace ConsoleApp1
                 const string OLD_STYLE = "Steady";
                 for (uint i = 0; i < CURRENT_LED_COUNT; i++)
                 {
-                    result = LightAPI.MLAPI_SetLedStyle(CURRENT_DEV_TYPE, i, "CPU Temperature");
+                    result = LightApiDLL.MLAPI_SetLedStyle(CURRENT_DEV_TYPE, i, "CPU Temperature");
 
                     if(result != (int) MLAPIStatus.MLAPI_OK)
                     {
@@ -225,7 +225,7 @@ namespace ConsoleApp1
 
                 for (uint i = 0; i < CURRENT_LED_COUNT; i++)
                 {
-                    result = LightAPI.MLAPI_SetLedStyle(CURRENT_DEV_TYPE, i, OLD_STYLE);
+                    result = LightApiDLL.MLAPI_SetLedStyle(CURRENT_DEV_TYPE, i, OLD_STYLE);
 
                     if (result != (int)MLAPIStatus.MLAPI_OK)
                     {
@@ -239,7 +239,7 @@ namespace ConsoleApp1
                 Console.WriteLine("\n Max bright tijd!");
                 for (uint i = 0; i < CURRENT_LED_COUNT; i++)
                 {
-                    result = LightAPI.MLAPI_GetLedMaxBright(CURRENT_DEV_TYPE, i, out uint brightness);
+                    result = LightApiDLL.MLAPI_GetLedMaxBright(CURRENT_DEV_TYPE, i, out uint brightness);
 
                     if (result != (int)MLAPIStatus.MLAPI_OK)
                     {

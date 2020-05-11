@@ -19,7 +19,7 @@ namespace ConsoleApp1
         MLAPI_NOT_SUPPORTED = -103
     }
 
-    static class LightAPI
+    static class LightApiDLL
     {
 
         private const string SDK_NAME = "MysticLight_SDK.dll";
