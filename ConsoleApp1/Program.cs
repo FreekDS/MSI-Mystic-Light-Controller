@@ -1,12 +1,10 @@
 ﻿using System;
 using System.Configuration;
-using System.IO;
-using System.Runtime.InteropServices;
-using System.Runtime.InteropServices.ComTypes;
-using System.Text;
+using System.Threading;
 
 namespace ConsoleApp1
 {
+    
     class Program
     {
 
@@ -25,6 +23,9 @@ namespace ConsoleApp1
         static void Main(string[] args)
         {
 
+            /*Config config = new Config("config");
+
+            Console.WriteLine(config.Get("SDK_PATH"));*/
 
 
             string DLL_PATH = ConfigurationManager.AppSettings["MYSTIC_LIGHT_DLL"];
@@ -136,7 +137,7 @@ namespace ConsoleApp1
 
                 ////////// LED name
 
-                result = LightAPI.MLAPI_GetLedName(CURRENT_DEV_TYPE, out string[] ledName);
+                /*result = LightAPI.MLAPI_GetLedName(CURRENT_DEV_TYPE, out string[] ledName);
                 if (result != (int)MLAPIStatus.MLAPI_OK)
                 {
                     Console.WriteLine("Cannot get LED name :'(");
@@ -149,7 +150,7 @@ namespace ConsoleApp1
                     {
                         Console.WriteLine("\t" + n.ToString());
                     }
-                }
+                }*/
 
 
                 //////// LED COLOR
@@ -167,7 +168,31 @@ namespace ConsoleApp1
                     {
                         Console.WriteLine(String.Format("\tCOLOR LED {0} ({1}, {2}, {3})", i, r, g, b));
                     }
+
+
+                    result = LightAPI.MLAPI_SetLedColor(CURRENT_DEV_TYPE, i, 135, 233, 233);
+                    if (result != (int)MLAPIStatus.MLAPI_OK)
+                    {
+                        Console.WriteLine("Cannot set LED color :'(");
+                        Error(result, true);
+                    }
+                    else
+                    {
+                        Console.WriteLine("Colors should be updated?");
+
+
+                        Thread.Sleep(1000);
+
+                        Console.WriteLine("Going old color");
+
+                        result = LightAPI.MLAPI_SetLedColor(CURRENT_DEV_TYPE, i, r, g, b);
+
+                    }
+
                 }
+
+
+
 
                 //////// LED STYLE
                 /*Console.WriteLine("\nStyle tijd!");

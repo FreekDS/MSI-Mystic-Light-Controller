@@ -22,7 +22,7 @@ namespace ConsoleApp1
     static class LightAPI
     {
 
-        public const string SDK_NAME = "MysticLight_SDK.dll";
+        private const string SDK_NAME = "MysticLight_SDK.dll";
 
 
         [DllImport("kernel32.dll", CharSet = CharSet.Auto, SetLastError = true)]
