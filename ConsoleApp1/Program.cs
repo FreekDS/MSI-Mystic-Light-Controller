@@ -126,13 +126,11 @@ namespace ConsoleApp1
                 else
                 {
                     Console.WriteLine("Ca marche");
-                    Console.WriteLine("LED 0:\n\t" + name);
+                    Console.WriteLine("LED 0 (" + name + "):");
                     foreach (string style in styles)
                     {
-                        Console.WriteLine("\tSTYLE:" + style);
+                        Console.WriteLine("\tSTYLE: " + style);
                     }
-
-                    Console.WriteLine("Miauwkes");
                 }
 
                 ////////// LED name
@@ -205,6 +203,37 @@ namespace ConsoleApp1
                     }
                 }
 
+                const string OLD_STYLE = "Steady";
+                for (uint i = 0; i < CURRENT_LED_COUNT; i++)
+                {
+                    result = LightAPI.MLAPI_SetLedStyle(CURRENT_DEV_TYPE, i, "JAZZ");
+
+                    if(result != (int) MLAPIStatus.MLAPI_OK)
+                    {
+                        Console.WriteLine("Cannot update style");
+                        Error(result, true);
+                    }
+                    else
+                    {
+                        Console.WriteLine("Style updated to JAZZ!!");
+                    }
+
+                }
+
+                Console.WriteLine("Press any key to reset");
+                Console.ReadLine();
+
+                for (uint i = 0; i < CURRENT_LED_COUNT; i++)
+                {
+                    result = LightAPI.MLAPI_SetLedStyle(CURRENT_DEV_TYPE, i, OLD_STYLE);
+
+                    if (result != (int)MLAPIStatus.MLAPI_OK)
+                    {
+                        Console.WriteLine("Cannot update style");
+                        Error(result, true);
+                    }
+
+                }
 
                 //////// LED MAX BRIGHT
                 Console.WriteLine("\n Max bright tijd!");
