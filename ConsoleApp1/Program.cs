@@ -206,7 +206,7 @@ namespace ConsoleApp1
                 const string OLD_STYLE = "Steady";
                 for (uint i = 0; i < CURRENT_LED_COUNT; i++)
                 {
-                    result = LightAPI.MLAPI_SetLedStyle(CURRENT_DEV_TYPE, i, "JAZZ");
+                    result = LightAPI.MLAPI_SetLedStyle(CURRENT_DEV_TYPE, i, "CPU Temperature");
 
                     if(result != (int) MLAPIStatus.MLAPI_OK)
                     {
@@ -215,7 +215,7 @@ namespace ConsoleApp1
                     }
                     else
                     {
-                        Console.WriteLine("Style updated to JAZZ!!");
+                        Console.WriteLine("Style updated to CPU Temperature");
                     }
 
                 }
