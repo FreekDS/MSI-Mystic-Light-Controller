@@ -49,148 +49,148 @@ namespace ConsoleApp1
 
 
         // VT_BSTR WERKT!!
-        [DllImport(SDK_NAME, CallingConvention = CallingConvention.Cdecl)]
+        [DllImport(SDK_NAME, CallingConvention = CallingConvention.Cdecl, CharSet = CharSet.Ansi)]
         public static extern int MLAPI_GetDeviceInfo(
             [Out, MarshalAs(UnmanagedType.SafeArray, SafeArraySubType = VarEnum.VT_BSTR)] out string[] devTypes,
             [Out, MarshalAs(UnmanagedType.SafeArray, SafeArraySubType = VarEnum.VT_BSTR)] out string[] ledCount
         );
 
-        [DllImport(SDK_NAME, CallingConvention = CallingConvention.Cdecl)]
+        [DllImport(SDK_NAME, CallingConvention = CallingConvention.Cdecl, CharSet = CharSet.Ansi)]
         public static extern int MLAPI_GetDeviceName(
-            string type,
+            [In, MarshalAs(UnmanagedType.BStr)] string type,
             [Out, MarshalAs(UnmanagedType.SafeArray, SafeArraySubType = VarEnum.VT_BSTR)] out string[] devName
         );
 
-        [DllImport(SDK_NAME, CallingConvention = CallingConvention.Cdecl)]
+        [DllImport(SDK_NAME, CallingConvention = CallingConvention.Cdecl, CharSet = CharSet.Ansi)]
         public static extern int MLAPI_GetDeviceNameEx(
-            string type,
-            uint index,
-            out string deviceName
+            [In, MarshalAs(UnmanagedType.BStr)] string type,
+            [In, MarshalAs(UnmanagedType.U4)] uint index,
+            [Out, MarshalAs(UnmanagedType.BStr)] out string deviceName
         );
 
-        [DllImport(SDK_NAME, CallingConvention = CallingConvention.Cdecl)]
+        [DllImport(SDK_NAME, CallingConvention = CallingConvention.Cdecl, CharSet = CharSet.Ansi)]
         public static extern int MLAPI_GetLedInfo(
-            string type,
-            uint index,
-            out string name,
+            [In, MarshalAs(UnmanagedType.BStr)] string type,
+            [In, MarshalAs(UnmanagedType.U4)] uint index,
+            [Out, MarshalAs(UnmanagedType.BStr)] out string name,
             [Out, MarshalAs(UnmanagedType.SafeArray, SafeArraySubType = VarEnum.VT_BSTR)] out string[] ledStyles
         );
 
         [DllImport(SDK_NAME, CallingConvention = CallingConvention.Cdecl)]
         public static extern int MLAPI_GetLedName(
-            [MarshalAs(UnmanagedType.BStr)] string type,
+            [In, MarshalAs(UnmanagedType.BStr)] string type,
             [Out, MarshalAs(UnmanagedType.SafeArray, SafeArraySubType = VarEnum.VT_BSTR)] out string[] deviceName
         );
 
         // THIS WORKS??!!
         [DllImport(SDK_NAME, CallingConvention = CallingConvention.Cdecl, CharSet = CharSet.Ansi)]
         public static extern int MLAPI_GetLedColor(
-            [MarshalAs(UnmanagedType.BStr)] string type,
+            [In, MarshalAs(UnmanagedType.BStr)] string type,
             [In, MarshalAs(UnmanagedType.U4)] uint index,
             [Out, MarshalAs(UnmanagedType.U4)] out uint R,
             [Out, MarshalAs(UnmanagedType.U4)] out uint G,
             [Out, MarshalAs(UnmanagedType.U4)] out uint B
         );
 
-        [DllImport(SDK_NAME, CallingConvention = CallingConvention.Cdecl)]
+        [DllImport(SDK_NAME, CallingConvention = CallingConvention.Cdecl, CharSet = CharSet.Ansi)]
         public static extern int MLAPI_GetLedStyle(
-            string type,
-            uint index,
-            out string style
+            [In, MarshalAs(UnmanagedType.BStr)] string type,
+            [In, MarshalAs(UnmanagedType.U4)] uint index,
+            [Out, MarshalAs(UnmanagedType.BStr)] out string style
         );
 
-        [DllImport(SDK_NAME, CallingConvention = CallingConvention.Cdecl)]
+        [DllImport(SDK_NAME, CallingConvention = CallingConvention.Cdecl, CharSet = CharSet.Ansi)]
         public static extern int MLAPI_GetLedMaxBright(
-            string type,
-            uint index,
-            out uint maxLevel
+            [In, MarshalAs(UnmanagedType.BStr)] string type,
+            [In, MarshalAs(UnmanagedType.U4)] uint index,
+            [Out, MarshalAs(UnmanagedType.U4)] out uint maxLevel
         );
 
-        [DllImport(SDK_NAME, CallingConvention = CallingConvention.Cdecl)]
+        [DllImport(SDK_NAME, CallingConvention = CallingConvention.Cdecl, CharSet = CharSet.Ansi)]
         public static extern int MLAPI_GetLedBright(
-            string type,
-            uint index,
-            out uint currentLevel
+            [In, MarshalAs(UnmanagedType.BStr)] string type,
+            [In, MarshalAs(UnmanagedType.U4)] uint index,
+            [Out, MarshalAs(UnmanagedType.U4)] out uint currentLevel
         );
 
-        [DllImport(SDK_NAME, CallingConvention = CallingConvention.Cdecl)]
+        [DllImport(SDK_NAME, CallingConvention = CallingConvention.Cdecl, CharSet = CharSet.Ansi)]
         public static extern int MLAPI_GetLedMaxSpeed(
-            string type,
-            uint index,
-            out uint maxLevel
+            [In, MarshalAs(UnmanagedType.BStr)] string type,
+            [In, MarshalAs(UnmanagedType.U4)] uint index,
+            [Out, MarshalAs(UnmanagedType.U4)] out uint maxLevel
         );
 
-        [DllImport(SDK_NAME, CallingConvention = CallingConvention.Cdecl)]
+        [DllImport(SDK_NAME, CallingConvention = CallingConvention.Cdecl, CharSet = CharSet.Ansi)]
         public static extern int MLAPI_GetLedSpeed(
-            string type,
-            uint index,
-            out uint currentLevel
+            [In, MarshalAs(UnmanagedType.BStr)] string type,
+            [In, MarshalAs(UnmanagedType.U4)] uint index,
+            [Out, MarshalAs(UnmanagedType.U4)] out uint currentLevel
         );
 
-        [DllImport(SDK_NAME, CallingConvention = CallingConvention.Cdecl)]
+        [DllImport(SDK_NAME, CallingConvention = CallingConvention.Cdecl, CharSet = CharSet.Ansi)]
         public static extern int MLAPI_SetLedColor(
-            string type,
-            uint index,
-            uint R,
-            uint G,
-            uint B
+            [In, MarshalAs(UnmanagedType.BStr)] string type,
+            [In, MarshalAs(UnmanagedType.U4)] uint index,
+            [In, MarshalAs(UnmanagedType.U4)] uint R,
+            [In, MarshalAs(UnmanagedType.U4)] uint G,
+            [In, MarshalAs(UnmanagedType.U4)] uint B
         );
 
-        [DllImport(SDK_NAME, CallingConvention = CallingConvention.Cdecl)]
+        [DllImport(SDK_NAME, CallingConvention = CallingConvention.Cdecl, CharSet = CharSet.Ansi)]
         public static extern int MLAPI_SetLedColors(
-            string type,
-            uint index,
+            [In, MarshalAs(UnmanagedType.BStr)] string type,
+            [In, MarshalAs(UnmanagedType.U4)] uint index,
             [MarshalAs(UnmanagedType.SafeArray, SafeArraySubType = VarEnum.VT_BSTR)] ref String[] ledName,
-            ref uint R,
-            ref uint G,
-            ref uint B
+            [MarshalAs(UnmanagedType.U4)] ref uint R,
+            [MarshalAs(UnmanagedType.U4)] ref uint G,
+            [MarshalAs(UnmanagedType.U4)] ref uint B
         );
 
-        [DllImport(SDK_NAME, CallingConvention = CallingConvention.Cdecl)]
+        [DllImport(SDK_NAME, CallingConvention = CallingConvention.Cdecl, CharSet = CharSet.Ansi)]
         public static extern int MLAPI_SetLedColorEx(
-            string type,
-            uint index,
-            string ledName,
-            uint R,
-            uint G,
-            uint B,
-            uint Sync
+            [In, MarshalAs(UnmanagedType.BStr)] string type,
+            [In, MarshalAs(UnmanagedType.U4)] uint index,
+            [In, MarshalAs(UnmanagedType.BStr)] string ledName,
+            [In, MarshalAs(UnmanagedType.U4)] uint R,
+            [In, MarshalAs(UnmanagedType.U4)] uint G,
+            [In, MarshalAs(UnmanagedType.U4)] uint B,
+            [In, MarshalAs(UnmanagedType.U4)] uint Sync
         );
 
-        [DllImport(SDK_NAME, CallingConvention = CallingConvention.Cdecl)]
+        [DllImport(SDK_NAME, CallingConvention = CallingConvention.Cdecl, CharSet = CharSet.Ansi)]
         public static extern int MLAPI_SetLedColorSync(
-            string type,
-            uint index,
-            string ledName,
-            uint R,
-            uint G,
-            uint B,
-            uint Sync
+            [In, MarshalAs(UnmanagedType.BStr)] string type,
+            [In, MarshalAs(UnmanagedType.U4)] uint index,
+            [In, MarshalAs(UnmanagedType.BStr)] string ledName,
+            [In, MarshalAs(UnmanagedType.U4)] uint R,
+            [In, MarshalAs(UnmanagedType.U4)] uint G,
+            [In, MarshalAs(UnmanagedType.U4)] uint B,
+            [In, MarshalAs(UnmanagedType.U4)] uint Sync
         );
 
-        [DllImport(SDK_NAME, CallingConvention = CallingConvention.Cdecl)]
+        [DllImport(SDK_NAME, CallingConvention = CallingConvention.Cdecl, CharSet = CharSet.Ansi)]
         public static extern int MLAPI_SetLedStyle(
-            string type,
-            uint index,
-            string style
+            [In, MarshalAs(UnmanagedType.BStr)] string type,
+            [In, MarshalAs(UnmanagedType.U4)] uint index,
+            [In, MarshalAs(UnmanagedType.BStr)] string style
         );
 
-        [DllImport(SDK_NAME, CallingConvention = CallingConvention.Cdecl)]
+        [DllImport(SDK_NAME, CallingConvention = CallingConvention.Cdecl, CharSet = CharSet.Ansi)]
         public static extern int MLAPI_SetLedBright(
-            string type,
-            uint index,
-            uint level
+            [In, MarshalAs(UnmanagedType.BStr)] string type,
+            [In, MarshalAs(UnmanagedType.U4)] uint index,
+            [In, MarshalAs(UnmanagedType.U4)] uint level
         );
 
-        [DllImport(SDK_NAME, CallingConvention = CallingConvention.Cdecl)]
+        [DllImport(SDK_NAME, CallingConvention = CallingConvention.Cdecl, CharSet = CharSet.Ansi)]
         public static extern int MLAPI_SetLedSpeed(
-            string type,
-            uint index,
-            uint level
+            [In, MarshalAs(UnmanagedType.BStr)] string type,
+            [In, MarshalAs(UnmanagedType.U4)] uint index,
+            [In, MarshalAs(UnmanagedType.U4)] uint level
         );
 
 
-        [DllImport(SDK_NAME, CallingConvention = CallingConvention.Cdecl)]
+        [DllImport(SDK_NAME, CallingConvention = CallingConvention.Cdecl, CharSet = CharSet.Ansi)]
         public static extern int MLAPI_GetErrorMessage(
             int errorCode,
             [Out, MarshalAs(UnmanagedType.BStr)] out string description
