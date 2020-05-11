@@ -111,7 +111,7 @@ namespace ConsoleApp1
 
                 ///////////////////// LED INFO
                 ///
-                /*
+                
                 Console.WriteLine("trying to get LED info...");
               
                 result = LightAPI.MLAPI_GetLedInfo(CURRENT_DEV_TYPE, 0, out string name, out string[] styles);
@@ -133,7 +133,7 @@ namespace ConsoleApp1
                     }
 
                     Console.WriteLine("Miauwkes");
-                }*/
+                }
 
                 ////////// LED name
 
@@ -154,7 +154,7 @@ namespace ConsoleApp1
 
 
                 //////// LED COLOR
-                uint r = 60, g = 201, b = 0;
+                /*uint r = 60, g = 201, b = 0;
                 Console.WriteLine(String.Format("\n\nColor tijd! ({0}, {1})", CURRENT_DEV_TYPE, CURRENT_LED_COUNT));
                 for(uint i = 0; i < CURRENT_LED_COUNT; i++)
                 {
@@ -184,7 +184,7 @@ namespace ConsoleApp1
                 for(uint i = 0; i < CURRENT_LED_COUNT; i++)
                 {
                     result = LightAPI.MLAPI_SetLedColor(CURRENT_DEV_TYPE, i, r, g, b);
-                }
+                }*/
 
 
 
@@ -207,7 +207,7 @@ namespace ConsoleApp1
 
 
                 //////// LED MAX BRIGHT
-                /*Console.WriteLine("\n Max bright tijd!");
+                Console.WriteLine("\n Max bright tijd!");
                 for (uint i = 0; i < CURRENT_LED_COUNT; i++)
                 {
                     result = LightAPI.MLAPI_GetLedMaxBright(CURRENT_DEV_TYPE, i, out uint brightness);
@@ -221,7 +221,7 @@ namespace ConsoleApp1
                     {
                         Console.WriteLine(String.Format("Max brightness LED {0}: {1}", i, brightness));
                     }
-                }*/
+                }
 
 
 
