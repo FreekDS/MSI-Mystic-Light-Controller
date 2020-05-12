@@ -20,8 +20,21 @@ namespace ConsoleApp1
             }
         }
 
+        static void newTest(string path)
+        {
+            LightController controller = new LightController(path);
+            string device = controller.Devices[0];
+            Color oldColor = controller.GetAllLedColors(device)[0];
+            controller.SetAllLedColors(device, new Color(255, 0, 0));
+            Console.WriteLine("Colors should be updated. Press any key to continue");
+            Console.ReadLine();
+            controller.SetAllLedColors(device, oldColor);
+        }
+
         static void Main(string[] args)
         {
+
+            
 
             /*Config config = new Config("config");
 
@@ -29,7 +42,9 @@ namespace ConsoleApp1
 
 
             string DLL_PATH = ConfigurationManager.AppSettings["MYSTIC_LIGHT_DLL"];
-            
+            newTest(DLL_PATH);
+            return;
+
             LightApiDLL.SetDllDirectory(DLL_PATH);
 
             Console.WriteLine("Started program...\n" +
