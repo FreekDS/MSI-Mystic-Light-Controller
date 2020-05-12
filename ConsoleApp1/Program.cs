@@ -33,9 +33,6 @@ namespace ConsoleApp1
 
         static void Main(string[] args)
         {
-
-            
-
             /*Config config = new Config("config");
 
             Console.WriteLine(config.Get("SDK_PATH"));*/

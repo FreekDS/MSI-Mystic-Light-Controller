@@ -21,31 +21,33 @@ namespace ConsoleApp1
             R = r; G = g; B = b;
         }
 
+        private uint _r, _g, _b;
+
         public uint R
         {
-            get => R;
+            get => _r;
             set
             {
-                if (value < 255)
-                    R = value;
+                if (value <= 255)
+                    _r = value;
             }
         }
         public uint G
         {
-            get => G;
+            get => _g;
             set
             {
-                if (value < 255)
-                    G = value;
+                if (value <= 255)
+                    _g = value;
             }
         }
         public uint B
         {
-            get => B;
+            get => _b;
             set
             {
-                if (value < 255)
-                    B = value;
+                if (value <= 255)
+                    _b = value;
             }
         }
     }
