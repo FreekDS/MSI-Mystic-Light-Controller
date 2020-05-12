@@ -61,18 +61,13 @@ namespace ConsoleApp1
         /// <summary>
         /// Dictionaries to store Mystic Light API data
         /// </summary>
-        private readonly Dictionary<string, uint> _ledCount;
-        private readonly Dictionary<string, string[]> _availableLedStyles;
+        private readonly Dictionary<string, uint> _ledCount = new Dictionary<string, uint>();
+        private readonly Dictionary<string, string[]> _availableLedStyles = new Dictionary<string, string[]>();
 
         /// <summary>
         /// Allows checking for initialization
         /// </summary>
         private readonly bool _initalized = false;
-
-        /// <summary>
-        /// List of all available LED types
-        /// </summary>
-        public readonly string[] AvailableLEDTypes;
 
         /// <summary>
         /// Constructor for the Light controller.
