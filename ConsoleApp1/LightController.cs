@@ -293,6 +293,53 @@ namespace ConsoleApp1
 
         // TODO: brightness, speed
 
+        public uint[] GetAllLedBrightness(string device)
+        {
+            List<uint> result = new List<uint>();
+            for (uint index = 0; index < _ledCount[device]; index++)
+            {
+                if (!CheckApiStatus(LightApiDLL.MLAPI_GetLedBright(device, index, out uint bright), out string error))
+                {
+                    Console.WriteLine("Cannot get brightness for LED " + index + "\n\tmsg: " + error);
+                    result.Add(0);
+                    continue;
+                }
+                result.Add(bright);
+            }
+            return result.ToArray();
+        }
+
+        public uint GetLedBrightness(string device, uint index)
+        {
+            if (!CheckApiStatus(LightApiDLL.MLAPI_GetLedBright(device, index, out uint bright), out string error))
+            {
+                Console.WriteLine("Cannot get brightness for LED " + index + "\n\tmsg: " + error);
+                return 0;
+            }
+            return bright;
+        }
+
+        public void SetAllLedBrightness(string device, uint brightness)
+        {
+            for (uint index = 0; index < _ledCount[device]; index++)
+            {
+                if (!CheckApiStatus(LightApiDLL.MLAPI_SetLedBright(device, index, brightness), out string error))
+                {
+                    Console.WriteLine("Cannot set brightness for LED " + index + "\n\tmsg: " + error);
+                    continue;
+                }
+            }
+        }
+
+        public void SetLedBrightness(string device, uint index, uint brightness)
+        {
+            if (!CheckApiStatus(LightApiDLL.MLAPI_SetLedBright(device, index, brightness), out string error))
+            {
+                Console.WriteLine("Cannot set brightness for LED " + index + "\n\tmsg: " + error);
+                return;
+            }
+        }
+
 
 
         /// <summary>
