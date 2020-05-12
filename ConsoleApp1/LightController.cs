@@ -291,8 +291,6 @@ namespace ConsoleApp1
             return maxBright;
         }
 
-        // TODO: brightness, speed
-
         public uint[] GetAllLedBrightness(string device)
         {
             List<uint> result = new List<uint>();
@@ -336,6 +334,79 @@ namespace ConsoleApp1
             if (!CheckApiStatus(LightApiDLL.MLAPI_SetLedBright(device, index, brightness), out string error))
             {
                 Console.WriteLine("Cannot set brightness for LED " + index + "\n\tmsg: " + error);
+                return;
+            }
+        }
+
+        public uint[] GetAllLedMaxSpeed(string device)
+        {
+            List<uint> result = new List<uint>();
+            for (uint index = 0; index < _ledCount[device]; index++)
+            {
+                if (!CheckApiStatus(LightApiDLL.MLAPI_GetLedMaxSpeed(device, index, out uint speed), out string error))
+                {
+                    Console.WriteLine("Cannot get max speed for LED " + index + "\n\tmsg: " + error);
+                    result.Add(0);
+                    continue;
+                }
+                result.Add(speed);
+            }
+            return result.ToArray();
+        }
+
+        public uint GetLedMaxSpeed(string device, uint index)
+        {
+            if (!CheckApiStatus(LightApiDLL.MLAPI_GetLedMaxSpeed(device, index, out uint speed), out string error))
+            {
+                Console.WriteLine("Cannot get max speed for LED " + index + "\n\tmsg: " + error);
+                return 0;
+            }
+            return speed;
+        }
+
+        public uint[] GetAllLedSpeeds(string device)
+        {
+            List<uint> result = new List<uint>();
+            for (uint index = 0; index < _ledCount[device]; index++)
+            {
+                if (!CheckApiStatus(LightApiDLL.MLAPI_GetLedSpeed(device, index, out uint speed), out string error))
+                {
+                    Console.WriteLine("Cannot get speed for LED " + index + "\n\tmsg: " + error);
+                    result.Add(0);
+                    continue;
+                }
+                result.Add(speed);
+            }
+            return result.ToArray();
+        }
+
+        public uint GetLedSpeed(string device, uint index)
+        {
+            if (!CheckApiStatus(LightApiDLL.MLAPI_GetLedSpeed(device, index, out uint speed), out string error))
+            {
+                Console.WriteLine("Cannot get speed for LED " + index + "\n\tmsg: " + error);
+                return 0;
+            }
+            return speed;
+        }
+
+        public void SetAllLedSpeed(string device, uint speed)
+        {
+            for (uint index = 0; index < _ledCount[device]; index++)
+            {
+                if (!CheckApiStatus(LightApiDLL.MLAPI_SetLedSpeed(device, index, speed), out string error))
+                {
+                    Console.WriteLine("Cannot set speed for LED " + index + "\n\tmsg: " + error);
+                    continue;
+                }
+            }
+        }
+
+        public void SetLedSpeed(string device, uint index, uint speed)
+        {
+            if (!CheckApiStatus(LightApiDLL.MLAPI_SetLedSpeed(device, index, speed), out string error))
+            {
+                Console.WriteLine("Cannot set speed for LED " + index + "\n\tmsg: " + error);
                 return;
             }
         }
