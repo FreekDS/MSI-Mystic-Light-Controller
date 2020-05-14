@@ -74,7 +74,7 @@ namespace LightController
         /// </summary>
         /// <returns>string representation of the color</returns>
         public override string ToString() {
-            return String.Format("Color ({0}, {1}, {2})", R, G, B);
+            return String.Format("({0}, {1}, {2})", R, G, B);
         }
 
     }
