@@ -13,46 +13,6 @@ namespace LightController
         public LightControllerException(string message, Exception inner) : base(message, inner) { }
     }
 
-    public class Color
-    {
-
-        public Color(uint r, uint g, uint b)
-        {
-            R = r; G = g; B = b;
-        }
-
-        private uint _r, _g, _b;
-
-        public uint R
-        {
-            get => _r;
-            set
-            {
-                if (value <= 255)
-                    _r = value;
-            }
-        }
-        public uint G
-        {
-            get => _g;
-            set
-            {
-                if (value <= 255)
-                    _g = value;
-            }
-        }
-        public uint B
-        {
-            get => _b;
-            set
-            {
-                if (value <= 255)
-                    _b = value;
-            }
-        }
-    }
-
-
     class LightController
     {
         /// <summary>
