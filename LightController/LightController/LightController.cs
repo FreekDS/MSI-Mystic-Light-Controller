@@ -36,7 +36,7 @@ namespace LightController
             LightApiDLL.SetDllDirectory(dll_dir);
 
             // Initialize API
-            if (!CheckApiStatus(LightApiDLL.MLAPI_Initialize(), out string error))
+            if (!API_OK(LightApiDLL.MLAPI_Initialize(), out string error))
             {
                 Console.WriteLine("Could not initalize Light API DLL:\n\tmsg: " + error);
                 return;
@@ -45,7 +45,7 @@ namespace LightController
             _initalized = true;
 
             // Fetch devices
-            if (!CheckApiStatus(LightApiDLL.MLAPI_GetDeviceInfo(out string[] devTypes, out string[] ledCount), out error))
+            if (!API_OK(LightApiDLL.MLAPI_GetDeviceInfo(out string[] devTypes, out string[] ledCount), out error))
             {
                 Console.WriteLine("Could not fetch devices:\n\t" + error);
                 return;
@@ -64,7 +64,7 @@ namespace LightController
 
                 // Get LED info
                 // Assumption:
-                if (!CheckApiStatus(LightApiDLL.MLAPI_GetLedInfo(device, 0, out string _, out string[] ledStyles), out error)) {
+                if (!API_OK(LightApiDLL.MLAPI_GetLedInfo(device, 0, out string _, out string[] ledStyles), out error)) {
                     Console.WriteLine("Could not LED info:\n\t" + error);
                     break;
                 }
@@ -129,7 +129,7 @@ namespace LightController
             for(uint i = 0; i<_ledCount[device]; i++)
             {
                 
-                if(!CheckApiStatus(LightApiDLL.MLAPI_GetLedColor(device, i, out uint r, out uint g, out uint b), out string error)) 
+                if(!API_OK(LightApiDLL.MLAPI_GetLedColor(device, i, out uint r, out uint g, out uint b), out string error)) 
                 {
                     Console.WriteLine("Cannot get color of LED " + i + "\n\tmsg: " + error);
                     result.Add( new Color(0,0,0));
@@ -149,7 +149,7 @@ namespace LightController
         /// <returns>Color object that represents the color of the LED</returns>
         public Color GetLedColor(string device, uint index)
         {
-            if (!CheckApiStatus(LightApiDLL.MLAPI_GetLedColor(device, index, out uint r, out uint g, out uint b), out string error))
+            if (!API_OK(LightApiDLL.MLAPI_GetLedColor(device, index, out uint r, out uint g, out uint b), out string error))
             {
                 Console.WriteLine("Cannot get color of LED " + index + "\n\tmsg: " + error);
                 return new Color(0,0,0);
@@ -166,7 +166,7 @@ namespace LightController
         {
             for (uint i = 0; i < _ledCount[device]; i++)
             {
-                if (!CheckApiStatus(LightApiDLL.MLAPI_SetLedColor(device, i, color.R, color.G, color.B), out string error))
+                if (!API_OK(LightApiDLL.MLAPI_SetLedColor(device, i, color.R, color.G, color.B), out string error))
                 {
                     Console.WriteLine("Cannot set color for LED " + i + "\n\tmsg: " + error);
                     continue;
@@ -182,7 +182,7 @@ namespace LightController
         /// <param name="color">Color to set to the LED</param>
         public void SetLedColor(string device, uint index, Color color)
         {
-            if (!CheckApiStatus(LightApiDLL.MLAPI_SetLedColor(device, index, color.R, color.G, color.B), out string error))
+            if (!API_OK(LightApiDLL.MLAPI_SetLedColor(device, index, color.R, color.G, color.B), out string error))
             {
                 Console.WriteLine("Cannot set color for LED " + index + "\n\tmsg: " + error);
             }
@@ -198,7 +198,7 @@ namespace LightController
             List<string> result = new List<string>();
             for (uint index = 0; index < _ledCount[device]; index++)
             {
-                if (!CheckApiStatus(LightApiDLL.MLAPI_GetLedStyle(device, index, out string style), out string error))
+                if (!API_OK(LightApiDLL.MLAPI_GetLedStyle(device, index, out string style), out string error))
                 {
                     Console.WriteLine("Cannot get style for LED " + index + "\n\tmsg: " + error);
                     result.Add("");
@@ -217,7 +217,7 @@ namespace LightController
         /// <returns>Current LED style</returns>
         public string GetLedStyle(string device, uint index)
         {
-            if (!CheckApiStatus(LightApiDLL.MLAPI_GetLedStyle(device, index, out string style), out string error))
+            if (!API_OK(LightApiDLL.MLAPI_GetLedStyle(device, index, out string style), out string error))
             {
                 Console.WriteLine("Cannot get style for LED " + index + "\n\tmsg: " + error);
                 return "";
@@ -235,7 +235,7 @@ namespace LightController
 
             for (uint index = 0; index < _ledCount[device]; index++)
             {
-                if (!CheckApiStatus(LightApiDLL.MLAPI_SetLedStyle(device, index, style), out string error))
+                if (!API_OK(LightApiDLL.MLAPI_SetLedStyle(device, index, style), out string error))
                 {
                     Console.WriteLine("Cannot set style for LED " + index + "\n\tmsg: " + error);
                     continue;
@@ -251,7 +251,7 @@ namespace LightController
         /// <param name="style">Style to update to</param>
         public void SetLedStyle(string device, uint index, string style)
         {
-            if (!CheckApiStatus(LightApiDLL.MLAPI_SetLedStyle(device, index, style), out string error))
+            if (!API_OK(LightApiDLL.MLAPI_SetLedStyle(device, index, style), out string error))
             {
                 Console.WriteLine("Cannot get style for LED " + index + "\n\tmsg: " + error);
                 return;
@@ -268,7 +268,7 @@ namespace LightController
             List<uint> result = new List<uint>();
             for (uint index = 0; index < _ledCount[device]; index++)
             {
-                if (!CheckApiStatus(LightApiDLL.MLAPI_GetLedMaxBright(device, index, out uint maxBright), out string error))
+                if (!API_OK(LightApiDLL.MLAPI_GetLedMaxBright(device, index, out uint maxBright), out string error))
                 {
                     Console.WriteLine("Cannot get max brightness for LED " + index + "\n\tmsg: " + error);
                     result.Add(0);
@@ -287,7 +287,7 @@ namespace LightController
         /// <returns>Maximum brightness of the specified LED</returns>
         public uint GetLedMaxBrightness(string device, uint index)
         {
-            if (!CheckApiStatus(LightApiDLL.MLAPI_GetLedMaxBright(device, index, out uint maxBright), out string error))
+            if (!API_OK(LightApiDLL.MLAPI_GetLedMaxBright(device, index, out uint maxBright), out string error))
             {
                 Console.WriteLine("Cannot get max brightness for LED " + index + "\n\tmsg: " + error);
                 return 0;
@@ -305,7 +305,7 @@ namespace LightController
             List<uint> result = new List<uint>();
             for (uint index = 0; index < _ledCount[device]; index++)
             {
-                if (!CheckApiStatus(LightApiDLL.MLAPI_GetLedBright(device, index, out uint bright), out string error))
+                if (!API_OK(LightApiDLL.MLAPI_GetLedBright(device, index, out uint bright), out string error))
                 {
                     Console.WriteLine("Cannot get brightness for LED " + index + "\n\tmsg: " + error);
                     result.Add(0);
@@ -324,7 +324,7 @@ namespace LightController
         /// <returns>Current brightness of the specified LED</returns>
         public uint GetLedBrightness(string device, uint index)
         {
-            if (!CheckApiStatus(LightApiDLL.MLAPI_GetLedBright(device, index, out uint bright), out string error))
+            if (!API_OK(LightApiDLL.MLAPI_GetLedBright(device, index, out uint bright), out string error))
             {
                 Console.WriteLine("Cannot get brightness for LED " + index + "\n\tmsg: " + error);
                 return 0;
@@ -341,7 +341,7 @@ namespace LightController
         {
             for (uint index = 0; index < _ledCount[device]; index++)
             {
-                if (!CheckApiStatus(LightApiDLL.MLAPI_SetLedBright(device, index, brightness), out string error))
+                if (!API_OK(LightApiDLL.MLAPI_SetLedBright(device, index, brightness), out string error))
                 {
                     Console.WriteLine("Cannot set brightness for LED " + index + "\n\tmsg: " + error);
                     continue;
@@ -357,7 +357,7 @@ namespace LightController
         /// <param name="brightness">Brightness to set</param>
         public void SetLedBrightness(string device, uint index, uint brightness)
         {
-            if (!CheckApiStatus(LightApiDLL.MLAPI_SetLedBright(device, index, brightness), out string error))
+            if (!API_OK(LightApiDLL.MLAPI_SetLedBright(device, index, brightness), out string error))
             {
                 Console.WriteLine("Cannot set brightness for LED " + index + "\n\tmsg: " + error);
                 return;
@@ -374,7 +374,7 @@ namespace LightController
             List<uint> result = new List<uint>();
             for (uint index = 0; index < _ledCount[device]; index++)
             {
-                if (!CheckApiStatus(LightApiDLL.MLAPI_GetLedMaxSpeed(device, index, out uint speed), out string error))
+                if (!API_OK(LightApiDLL.MLAPI_GetLedMaxSpeed(device, index, out uint speed), out string error))
                 {
                     Console.WriteLine("Cannot get max speed for LED " + index + "\n\tmsg: " + error);
                     result.Add(0);
@@ -393,7 +393,7 @@ namespace LightController
         /// <returns>Max speed of the LED</returns>
         public uint GetLedMaxSpeed(string device, uint index)
         {
-            if (!CheckApiStatus(LightApiDLL.MLAPI_GetLedMaxSpeed(device, index, out uint speed), out string error))
+            if (!API_OK(LightApiDLL.MLAPI_GetLedMaxSpeed(device, index, out uint speed), out string error))
             {
                 Console.WriteLine("Cannot get max speed for LED " + index + "\n\tmsg: " + error);
                 return 0;
@@ -411,7 +411,7 @@ namespace LightController
             List<uint> result = new List<uint>();
             for (uint index = 0; index < _ledCount[device]; index++)
             {
-                if (!CheckApiStatus(LightApiDLL.MLAPI_GetLedSpeed(device, index, out uint speed), out string error))
+                if (!API_OK(LightApiDLL.MLAPI_GetLedSpeed(device, index, out uint speed), out string error))
                 {
                     Console.WriteLine("Cannot get speed for LED " + index + "\n\tmsg: " + error);
                     result.Add(0);
@@ -430,7 +430,7 @@ namespace LightController
         /// <returns>The speed of the specified LED</returns>
         public uint GetLedSpeed(string device, uint index)
         {
-            if (!CheckApiStatus(LightApiDLL.MLAPI_GetLedSpeed(device, index, out uint speed), out string error))
+            if (!API_OK(LightApiDLL.MLAPI_GetLedSpeed(device, index, out uint speed), out string error))
             {
                 Console.WriteLine("Cannot get speed for LED " + index + "\n\tmsg: " + error);
                 return 0;
@@ -447,7 +447,7 @@ namespace LightController
         {
             for (uint index = 0; index < _ledCount[device]; index++)
             {
-                if (!CheckApiStatus(LightApiDLL.MLAPI_SetLedSpeed(device, index, speed), out string error))
+                if (!API_OK(LightApiDLL.MLAPI_SetLedSpeed(device, index, speed), out string error))
                 {
                     Console.WriteLine("Cannot set speed for LED " + index + "\n\tmsg: " + error);
                     continue;
@@ -463,7 +463,7 @@ namespace LightController
         /// <param name="speed">Speed to set</param>
         public void SetLedSpeed(string device, uint index, uint speed)
         {
-            if (!CheckApiStatus(LightApiDLL.MLAPI_SetLedSpeed(device, index, speed), out string error))
+            if (!API_OK(LightApiDLL.MLAPI_SetLedSpeed(device, index, speed), out string error))
             {
                 Console.WriteLine("Cannot set speed for LED " + index + "\n\tmsg: " + error);
                 return;
@@ -482,7 +482,7 @@ namespace LightController
         /// <returns>
         /// true if the status was OK, else false
         /// </returns>
-        private static bool CheckApiStatus(int statusCode, out string error) 
+        public static bool API_OK(int statusCode, out string error) 
         {
             if(statusCode == (int)MLAPIStatus.MLAPI_OK)
             {
@@ -493,8 +493,5 @@ namespace LightController
             LightApiDLL.MLAPI_GetErrorMessage(statusCode, out error);
             return false;
         }
-
-
-
     }
 }

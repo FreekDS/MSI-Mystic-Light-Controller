@@ -1,9 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Linq;
-using System.Text;
+
 
 namespace LightController
 {
@@ -29,7 +26,10 @@ namespace LightController
             {
                 if (value <= MaxBrightness)
                 {
-                    // TODO update and only when succesful set
+                    if(!LightController.API_OK(LightApiDLL.MLAPI_SetLedBright(Device, Identifier, value), out string error))
+                    {
+                        throw new LightControllerException("Cannot set new led brightness\n\t" + error);
+                    }
                     _brightness = value;
                 }
                 else
@@ -45,7 +45,10 @@ namespace LightController
             {
                 if (value <= MaxSpeed)
                 {
-                    // TODO only update when API success
+                    if(!LightController.API_OK(LightApiDLL.MLAPI_SetLedSpeed(Device, Identifier, value), out string error))
+                    {
+                        throw new LightControllerException("Cannot set new led speed\n\t" + error);
+                    }
                     _speed = value;
                 }
                 else
@@ -61,7 +64,10 @@ namespace LightController
             {
                 if (_styles.Contains(value))
                 {
-                    // TODO update style with API and only set when successful
+                    if(!LightController.API_OK(LightApiDLL.MLAPI_SetLedStyle(Device, Identifier, value), out string error))
+                    {
+                        throw new LightControllerException("Cannot set new LED style\n\t" + error);
+                    }
                     _currentStyle = value;
                 }
                 else
@@ -89,13 +95,38 @@ namespace LightController
         /// <param name="index">Index identifier of the LED</param>
         public LED(string device, uint index)
         {
-            Device = device;
+            Device = device;      
             Identifier = index; // index identifier
-            MaxSpeed = 0; // TODO update, only set in ctor
-            MaxBrightness = 0; // TODO update, only set in ctor
-            _styles = new List<string>() { "stye1", "style2", "..." }; // TODO update, only set in ctor
-            _currentStyle = "style1"; // TODO update;
-            LEDColor = new Color(); // TODO update
+
+            string errorBase = $"Cannot intialize LED {index} of device {device}:\n\t";
+
+            // Max speed
+            if(!LightController.API_OK(LightApiDLL.MLAPI_GetLedMaxSpeed(Device, Identifier, out uint maxSpeed), out string error))
+                throw new LightControllerException(errorBase +"error while trying to get max speed\n\t" + error);
+            MaxSpeed = maxSpeed;
+
+            // Max brightness
+            if (!LightController.API_OK(LightApiDLL.MLAPI_GetLedMaxBright(Device, Identifier, out uint maxBright), out error))
+                throw new LightControllerException(errorBase + "error while trying to get max brightness\n\t" + error);
+            MaxBrightness = maxBright;
+
+            // Led styles
+            if (!LightController.API_OK(LightApiDLL.MLAPI_GetLedInfo(Device, Identifier, out string _, out string[] styles), out error))
+                throw new LightControllerException(errorBase + "error while trying to get led styles\n\t" + error);
+            _styles = new List<string>(styles);
+
+            // Current led style
+            if (!LightController.API_OK(LightApiDLL.MLAPI_GetLedStyle(Device, Identifier, out _currentStyle), out error))
+                throw new LightControllerException(errorBase + "error while trying to get current LED style\n\t" + error);
+
+            // Current Led speed
+            if (!LightController.API_OK(LightApiDLL.MLAPI_GetLedSpeed(Device, Identifier, out _speed), out error))
+                throw new LightControllerException(errorBase + "error while trying to get LED speed\n\t" + error);
+
+            // Current Led color
+            if (!LightController.API_OK(LightApiDLL.MLAPI_GetLedColor(Device, Identifier, out uint R, out uint G, out uint B), out error))
+                throw new LightControllerException(errorBase + "error while trying to get current LED color\n\t" + error);
+            LEDColor = new Color(R,G,B);
         }
 
         /// <summary>
@@ -111,21 +142,13 @@ namespace LightController
             }
             availableStyles = availableStyles[0..^2];
 
-            string description = String.Format(
-                "LED {0} (device: {1}):\n" +
-                "\tCurrent color: {2}\n" +
-                "\tCurrent style: {3}\n" +
-                "\tCurrent speed: {4} (Max: {5})\n" +
-                "\tCurrent brightness: {6} (Max: {7})\n" +
-                "\tPossible styles: {8}",
-                Identifier,
-                Device,
-                LEDColor.ToString(),
-                CurrentStyle,
-                Speed, MaxSpeed,
-                Brightness, MaxBrightness,
-                availableStyles
-            );
+            string description = 
+                $"LED {Identifier} (device: {Device}):\n" +
+                $"\tCurrent color: {LEDColor}\n" +
+                $"\tCurrent style: {CurrentStyle}\n" +
+                $"\tCurrent speed: {Speed} (Max: {MaxSpeed})\n" +
+                $"\tCurrent brightness: {Brightness} (Max: {MaxBrightness})\n" +
+                $"\tPossible styles: {availableStyles}";
 
             return description;
         }
