@@ -14,12 +14,8 @@ namespace LightController
         private const string UninitializedMessage = "Light controller is not initialized properly";
 
         /// <summary>
-        /// Dictionaries to store Mystic Light API data
+        /// Dictionary to store Mystic Light LEDs
         /// </summary>
-        private readonly Dictionary<string, uint> _ledCount = new Dictionary<string, uint>();
-        private readonly Dictionary<string, string[]> _availableLedStyles = new Dictionary<string, string[]>();
-
-
         private readonly Dictionary<string, LED[]> _availableLEDs = new Dictionary<string, LED[]>();
 
 
@@ -31,10 +27,12 @@ namespace LightController
         /// <summary>
         /// Constructor for the Light controller.
         /// This constructor initializes the
-        /// <paramref name="dll_dir">
-        /// Path to the directory containing the mystic light SDK
-        /// </paramref>
+        /// <paramref name="dll_dir"/> if specified.
         /// </summary>
+        /// <param name="dll_dir">
+        /// Path to the directory containing the mystic light SDK
+        /// This parameter is optional. If not provided, the default search procedure for DLL's is used.
+        /// </param>
         public LightController(string dll_dir = null)
         {
             if(dll_dir != null)
@@ -65,14 +63,12 @@ namespace LightController
                     continue;
                 
                 for(uint ledIndex = 0; ledIndex < ledAmount; ledIndex++)
-                {
                     _availableLEDs[device].Append(new LED(device, ledIndex));
-                }
             }
         }
 
         /// <summary>
-        /// Get list of devices
+        /// Get list of available devices
         /// </summary>
         public string[] Devices
         {
@@ -83,19 +79,37 @@ namespace LightController
             }
         }
 
-
+        /// <summary>
+        /// Get all the LED objects that are connected to a specified device.
+        /// </summary>
+        /// <param name="device">
+        /// Device that controls the LEDs. This parameter must be in the Devices property of the LightController class.
+        /// </param>
+        /// <returns>List of LED objects controlled by device</returns>
         public LED[] GetAllDeviceLEDs(string device)
         {
             return _availableLEDs[device];
         }
 
+        /// <summary>
+        /// Get a single LED that is controlled by a specified device.
+        /// </summary>
+        /// <param name="device">
+        /// Device that controls the LED. This parameter must be in the Devices property of the LightController class.
+        /// </param>
+        /// <param name="index">
+        /// Index of the LED. Must be in the range [0, (DeviceLedCount -1)]
+        /// </param>
+        /// <returns></returns>
         public LED GetDeviceLED(string device, uint index)
         {
             return _availableLEDs[device][index];
         }
 
-
-
+        /// <summary>
+        /// Get all the LEDs of all devices
+        /// </summary>
+        /// <returns>Array that contains all LEDs</returns>
         public LED[] GetAllLEDs()
         {
             IEnumerable<LED> result = new List<LED>();
