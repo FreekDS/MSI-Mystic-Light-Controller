@@ -12,6 +12,7 @@ namespace LightController
 
             Console.WriteLine(config.Get("SDK_PATH"));*/
 
+            
             string DLL_PATH = ConfigurationManager.AppSettings["MYSTIC_LIGHT_DLL"];
             LightController controller = new LightController(DLL_PATH);
             Console.WriteLine("Light controller was created");
