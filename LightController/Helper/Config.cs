@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using System.IO;
 using System.Reflection;
 
-namespace LightController
+namespace MysticLightController
 {
-    class Config
+    public class Config
     {
         readonly Dictionary<string, object> _content;
 

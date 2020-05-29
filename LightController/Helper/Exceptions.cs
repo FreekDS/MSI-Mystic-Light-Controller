@@ -1,8 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
 
-namespace LightController
+namespace MysticLightController
 {
     [Serializable]
     public class LightControllerException : Exception

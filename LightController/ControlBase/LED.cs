@@ -2,13 +2,13 @@
 using System.Collections.Generic;
 
 
-namespace LightController
+namespace MysticLightController
 {
     /// <summary>
     /// Class that represents a single LED or LED area.
     /// This class tries to minimize the API calls to the Mystic Light DLL
     /// </summary>
-    class LED
+    public class LED
     {
 
         // ----- Public constant properties 

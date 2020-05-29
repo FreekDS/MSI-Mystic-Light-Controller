@@ -1,18 +1,30 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <OutputType>Exe</OutputType>
+    <OutputType>Library</OutputType>
     <TargetFramework>netcoreapp3.1</TargetFramework>
     <Platforms>AnyCPU;x64;x86</Platforms>
     <SignAssembly>false</SignAssembly>
+    <Authors>Freek De Sagher</Authors>
+    <PackageId>MysticLightController</PackageId>
+    <PackageTags>MSI Mystic-Light-SDK DLL-import</PackageTags>
+    <PackageProjectUrl>https://github.com/FreekDS/MSI-Mystic-Light-Controller</PackageProjectUrl>
+    <RootNamespace>MysticLightController</RootNamespace>
+    <Description>Small wrapper library for the Mystic Light SDK by MSI. This library tries to minimize the API calls to the
+Mystic Light SDK.</Description>
+    <AssemblyVersion>1.0.0.0</AssemblyVersion>
+    <FileVersion>1.0.0.1</FileVersion>
+    <Version>1.0.1</Version>
+    <GeneratePackageOnBuild>false</GeneratePackageOnBuild>
+    <AssemblyName>MysticLightController</AssemblyName>
   </PropertyGroup>
 
-  <ItemGroup>
+  <!--<ItemGroup>
     <None Remove="Deployment\ConsoleApp1.exe" />
     <None Remove="Deployment\LightController.exe" />
-  </ItemGroup>
+  </ItemGroup>-->
 
-  <ItemGroup>
+  <!--<ItemGroup>
     <Folder Include="Deployment\" />
   </ItemGroup>
 
@@ -27,7 +39,7 @@
     <None Update="config">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-  </ItemGroup>
+  </ItemGroup>-->
 
   
   

@@ -3,10 +3,9 @@ using System.Collections.Generic;
 using System.Diagnostics.Contracts;
 using System.Linq;
 
-namespace LightController
+namespace MysticLightController
 {
-
-    class LightController
+    public class LightController
     {
         /// <summary>
         /// Message to give when LightController is not initialized

@@ -1,13 +1,10 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
 using System.Runtime.InteropServices;
-using System.Configuration;
 
-namespace LightController
+namespace MysticLightController
 {
 
-    public enum MLAPIStatus : int
+    internal enum MLAPIStatus : int
     {
         MLAPI_OK = 0,
         MLAPI_ERROR = -1,
@@ -19,7 +16,7 @@ namespace LightController
         MLAPI_NOT_SUPPORTED = -103
     }
 
-    static class LightApiDLL
+    internal static class LightApiDLL
     {
 
         private const string SDK_NAME = "MysticLight_SDK.dll";
@@ -47,8 +44,6 @@ namespace LightController
         [DllImport(SDK_NAME, CallingConvention = CallingConvention.Cdecl)]
         public static extern int MLAPI_Initialize();
 
-
-        // VT_BSTR WERKT!!
         [DllImport(SDK_NAME, CallingConvention = CallingConvention.Cdecl, CharSet = CharSet.Ansi)]
         public static extern int MLAPI_GetDeviceInfo(
             [Out, MarshalAs(UnmanagedType.SafeArray, SafeArraySubType = VarEnum.VT_BSTR)] out string[] devTypes,
@@ -82,7 +77,6 @@ namespace LightController
             [Out, MarshalAs(UnmanagedType.SafeArray, SafeArraySubType = VarEnum.VT_BSTR)] out string[] deviceName
         );
 
-        // THIS WORKS??!!
         [DllImport(SDK_NAME, CallingConvention = CallingConvention.Cdecl, CharSet = CharSet.Ansi)]
         public static extern int MLAPI_GetLedColor(
             [In, MarshalAs(UnmanagedType.BStr)] string type,
