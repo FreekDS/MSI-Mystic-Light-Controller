@@ -24,7 +24,7 @@ Most of the functions of the LightController class require you to pass in a devi
 
 ## Minimal working example
 ```c#
-LightController controller = new LightController("C:\\MSI\\mysticlightsdk.dll");
+LightController controller = new LightController("C:\\MSI\\SDK_FOLDER\\");
 string device = controller.Devices[0];
 Color color = new Color(150,217,40);
 LED led = controller.GetDeviceLED(device, 0);
