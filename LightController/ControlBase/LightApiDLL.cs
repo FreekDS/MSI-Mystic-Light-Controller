@@ -134,10 +134,10 @@ namespace MysticLightController
         public static extern int MLAPI_SetLedColors(
             [In, MarshalAs(UnmanagedType.BStr)] string type,
             [In, MarshalAs(UnmanagedType.U4)] uint index,
-            [MarshalAs(UnmanagedType.SafeArray, SafeArraySubType = VarEnum.VT_BSTR)] ref String[] ledName,
-            [MarshalAs(UnmanagedType.U4)] ref uint R,
-            [MarshalAs(UnmanagedType.U4)] ref uint G,
-            [MarshalAs(UnmanagedType.U4)] ref uint B
+            [In, MarshalAs(UnmanagedType.SafeArray, SafeArraySubType = VarEnum.VT_BSTR)] ref String[] ledName,
+            [In, MarshalAs(UnmanagedType.LPArray, ArraySubType = UnmanagedType.U4)] uint[] R,
+            [In, MarshalAs(UnmanagedType.LPArray, ArraySubType = UnmanagedType.U4)] uint[] G,
+            [In, MarshalAs(UnmanagedType.LPArray, ArraySubType = UnmanagedType.U4)] uint[] B
         );
 
         [DllImport(SDK_NAME, CallingConvention = CallingConvention.Cdecl, CharSet = CharSet.Ansi)]
