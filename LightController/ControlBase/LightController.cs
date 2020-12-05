@@ -60,9 +60,11 @@ namespace MysticLightController
                 uint ledAmount = UInt32.Parse(ledCount[i]);
                 if (ledAmount == 0)
                     continue;
-                
+
+                List<LED> leds = new List<LED>();
                 for(uint ledIndex = 0; ledIndex < ledAmount; ledIndex++)
-                    _availableLEDs[device].Append(new LED(device, ledIndex));
+                    leds.Add(new LED(device, ledIndex));
+                _availableLEDs.Add(device, leds.ToArray());
             }
         }
 
