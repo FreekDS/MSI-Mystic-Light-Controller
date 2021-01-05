@@ -24,17 +24,21 @@ namespace MysticLightController
             get => _brightness;
             set
             {
-                if (value <= MaxBrightness)
+                if (_initialized)
                 {
-                    if(!LightController.API_OK(LightApiDLL.MLAPI_SetLedBright(Device, Identifier, value), out string error))
+                    if (value <= MaxBrightness)
                     {
-                        throw new LightControllerException("Cannot set new led brightness\n\t" + error);
+                        if (!LightController.API_OK(LightApiDLL.MLAPI_SetLedBright(Device, Identifier, value), out string error))
+                        {
+                            throw new LightControllerException("Cannot set new led brightness\n\t" + error);
+                        }
+                        _brightness = value;
                     }
-                    _brightness = value;
-                }
-                else
-                {
-                    throw new ArgumentException(String.Format("Max brightness is {0}", MaxBrightness), value.ToString());
+                    else
+                    {
+                        throw new ArgumentException(String.Format("Max brightness is {0}", MaxBrightness), value.ToString());
+                    }
+
                 }
             }
         }
@@ -43,17 +47,20 @@ namespace MysticLightController
             get => _speed;
             set
             {
-                if (value <= MaxSpeed)
+                if (_initialized)
                 {
-                    if(!LightController.API_OK(LightApiDLL.MLAPI_SetLedSpeed(Device, Identifier, value), out string error))
+                    if (value <= MaxSpeed)
                     {
-                        throw new LightControllerException("Cannot set new led speed\n\t" + error);
+                        if (!LightController.API_OK(LightApiDLL.MLAPI_SetLedSpeed(Device, Identifier, value), out string error))
+                        {
+                            throw new LightControllerException("Cannot set new led speed\n\t" + error);
+                        }
+                        _speed = value;
                     }
-                    _speed = value;
-                }
-                else
-                {
-                    throw new ArgumentException(String.Format("Max brightness is {0}", MaxSpeed), value.ToString());
+                    else
+                    {
+                        throw new ArgumentException(String.Format("Max brightness is {0}", MaxSpeed), value.ToString());
+                    }
                 }
             }
         }
@@ -62,21 +69,38 @@ namespace MysticLightController
             get => _currentStyle;
             set
             {
-                if (_styles.Contains(value))
+                if (_initialized)
                 {
-                    if(!LightController.API_OK(LightApiDLL.MLAPI_SetLedStyle(Device, Identifier, value), out string error))
+                    if (_styles.Contains(value))
                     {
-                        throw new LightControllerException("Cannot set new LED style\n\t" + error);
+                        if(!LightController.API_OK(LightApiDLL.MLAPI_SetLedStyle(Device, Identifier, value), out string error))
+                        {
+                            throw new LightControllerException("Cannot set new LED style\n\t" + error);
+                        }
+                        _currentStyle = value;
                     }
-                    _currentStyle = value;
-                }
-                else
-                {
-                    throw new ArgumentException("Style not supported, see Styles property for available styles", value);
+                    else
+                    {
+                        throw new ArgumentException("Style not supported, see Styles property for available styles", value);
+                    }
                 }
             }
         }
-        public Color LEDColor { get; set; }
+        public Color LEDColor
+        {
+            get => _color;
+            set
+            {
+                if (_initialized)
+                {
+                    if (!LightController.API_OK(LightApiDLL.MLAPI_SetLedColor(Device, Identifier, value.R, value.G, value.B), out string error))
+                    {
+                        throw new LightControllerException("Cannot set new led color\n\t" + error);
+                    }
+                    _color = value;
+                }
+            }
+        }
 
 
         // ----- Private data members
@@ -84,7 +108,8 @@ namespace MysticLightController
         private uint _speed;
         private readonly List<string> _styles = new List<string>();
         private string _currentStyle = null;
-
+        private Color _color;
+        private bool _initialized = true;
 
         // ----- Class methods
 
@@ -126,7 +151,9 @@ namespace MysticLightController
             // Current Led color
             if (!LightController.API_OK(LightApiDLL.MLAPI_GetLedColor(Device, Identifier, out uint R, out uint G, out uint B), out error))
                 throw new LightControllerException(errorBase + "error while trying to get current LED color\n\t" + error);
-            LEDColor = new Color(R,G,B);
+
+            _initialized = true;
+
         }
 
         /// <summary>
