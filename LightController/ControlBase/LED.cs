@@ -76,7 +76,18 @@ namespace MysticLightController
                 }
             }
         }
-        public Color LEDColor { get; set; }
+        public Color LEDColor { 
+            get => _color;
+            set {
+                if (value == _color)
+                    return;
+                if(!LightController.API_OK(LightApiDLL.MLAPI_SetLedColor(Device, Identifier, value.R, value.G, value.B), out string error))
+                {
+                    throw new LightControllerException("Cannot set new led color\n\t" + error);
+                }
+                _color = value;
+            } 
+        }
 
 
         // ----- Private data members
@@ -84,6 +95,7 @@ namespace MysticLightController
         private uint _speed;
         private readonly List<string> _styles = new List<string>();
         private string _currentStyle = null;
+        private Color _color;
 
 
         // ----- Class methods
@@ -126,7 +138,7 @@ namespace MysticLightController
             // Current Led color
             if (!LightController.API_OK(LightApiDLL.MLAPI_GetLedColor(Device, Identifier, out uint R, out uint G, out uint B), out error))
                 throw new LightControllerException(errorBase + "error while trying to get current LED color\n\t" + error);
-            LEDColor = new Color(R,G,B);
+            _color = new Color(R,G,B);
         }
 
         /// <summary>
